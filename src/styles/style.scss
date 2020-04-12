@@ -1,0 +1,43 @@
+/* Global block of an indicator*/
+.instrument {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+
+  /* The box containing any element of an indicator */
+  .box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &.attitude .roll {
+    transform: rotate(0deg);
+    .pitch {
+      top: 0%;
+    }
+  }
+
+  &.compass .yaw {
+    transform: rotate(0deg);
+  }
+  &.vspeed .vspeed {
+    transform: rotate(0deg);
+  }
+  &.speed .airspeed {
+    transform: rotate(90deg);
+  }
+  &.altimeter .pressure {
+    transform: rotate(40deg);
+  }
+  &.altimeter .needle {
+    transform: rotate(90deg);
+    .needleSmall {
+      transform: rotate(90deg);
+    }
+  }
+}
