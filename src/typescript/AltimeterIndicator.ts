@@ -1,41 +1,39 @@
 import FlightIndicator from "./FlightIndicator";
-import FlightIndicatorSettings from "./FlightIndicatorSettings";
-import IFlightIndicator from "./IFlightIndicator";
 
 export default class AltimeterIndicator extends FlightIndicator {
   protected init(): void {
-    this.setAltitude(this.settings.altitude as number);
-    this.setPressure(this.settings.pressure as number);
+    this.setAltitude(this.oOptopns.altitude as number);
+    this.setPressure(this.oOptopns.pressure as number);
   }
 
-  public setPressure(pressure: number): void {
-    if (this.item === null) {
+  public setPressure(nPressure: number): void {
+    if (this.oItem === null) {
       return;
     }
 
-    pressure = 2 * pressure - 1980;
-    let divPressure: HTMLElement | null = this.item.querySelector(
+    nPressure = 2 * nPressure - 1980;
+    let divPressure: HTMLElement | null = this.oItem.querySelector(
       ".instrument.altimeter .pressure"
     );
     if (divPressure !== null) {
-      divPressure.style.transform = `rotate(${pressure}deg)`;
+      divPressure.style.transform = `rotate(${nPressure}deg)`;
     }
   }
 
-  public setAltitude(altitude: number): void {
-    if (this.item === null) {
+  public setAltitude(nAltitude: number): void {
+    if (this.oItem === null) {
       return;
     }
 
-    let needle = 90 + ((altitude % 1000) * 360) / 1000;
-    let needleSmall = (altitude / 10000) * 360;
-    let divNeedle: HTMLElement | null = this.item.querySelector(
+    let needle = 90 + ((nAltitude % 1000) * 360) / 1000;
+    let needleSmall = (nAltitude / 10000) * 360;
+    let divNeedle: HTMLElement | null = this.oItem.querySelector(
       ".instrument.altimeter .needle"
     );
     if (divNeedle !== null) {
       divNeedle.style.transform = `rotate(${needle}deg)`;
     }
-    let divNeedleSmall: HTMLElement | null = this.item.querySelector(
+    let divNeedleSmall: HTMLElement | null = this.oItem.querySelector(
       ".instrument.altimeter .needleSmall"
     );
     if (divNeedleSmall !== null) {
@@ -44,32 +42,32 @@ export default class AltimeterIndicator extends FlightIndicator {
   }
 
   protected draw(): HTMLElement {
-    let wrapper: HTMLDivElement = document.createElement("div");
-    wrapper.classList.add(...["instrument", "altimeter"]);
-    wrapper.append(this.createImageBox("fi_box.svg", "background"));
+    let divWrapper: HTMLDivElement = document.createElement("div");
+    divWrapper.classList.add(...["instrument", "altimeter"]);
+    divWrapper.append(this.createImageBox("fi_box.svg", "background"));
 
     let divPressure: HTMLElement = document.createElement("div");
     divPressure.classList.add(...["pressure", "box"]);
     divPressure.append(this.createImageBox("altitude_pressure.svg"));
-    wrapper.append(divPressure);
+    divWrapper.append(divPressure);
 
-    wrapper.append(this.createImageBox("altitude_ticks.svg"));
+    divWrapper.append(this.createImageBox("altitude_ticks.svg"));
 
     let divNeedleSmall: HTMLElement = document.createElement("div");
     divNeedleSmall.classList.add(...["needleSmall", "box"]);
     divNeedleSmall.append(this.createImageBox("fi_needle_small.svg"));
-    wrapper.append(divNeedleSmall);
+    divWrapper.append(divNeedleSmall);
 
     let divNeedle: HTMLElement = document.createElement("div");
     divNeedle.classList.add(...["needle", "box"]);
     divNeedle.append(this.createImageBox("fi_needle.svg"));
-    wrapper.append(divNeedle);
+    divWrapper.append(divNeedle);
 
     let divMechanic: HTMLDivElement = document.createElement("div");
     divMechanic.classList.add(...["mechanics", "box"]);
     divMechanic.append(this.createImageBox("fi_circle.svg"));
-    wrapper.append(divMechanic);
+    divWrapper.append(divMechanic);
 
-    return wrapper;
+    return divWrapper;
   }
 }

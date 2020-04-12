@@ -3,11 +3,11 @@ export default interface IFlightIndicator {
   roll?: number;
   pitch?: number;
   turn?: number;
-  heading?: number;
-  vario?: number;
+  compass?: number;
+  vspeed?: number;
   airspeed?: number;
   altitude?: number;
   pressure?: number;
   showBox?: boolean;
-  img_directory?: string;
+  imgDirectory?: string;
 }

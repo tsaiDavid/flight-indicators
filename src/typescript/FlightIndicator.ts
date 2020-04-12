@@ -10,62 +10,59 @@ export default class FlightIndicator {
     throw new Error("Method not implemented.");
   }
 
-  protected settings: IFlightIndicator = new FlightIndicatorSettings();
-  protected item: HTMLElement | null = null;
-  protected constants = {
-    pitch_bound: 30,
-    vario_bound: 1.95,
-    airspeed_bound_l: 0,
-    airspeed_bound_h: 160,
+  protected oOptopns: IFlightIndicator = new FlightIndicatorSettings();
+  protected oItem: HTMLElement | null = null;
+  protected oConstants = {
+    pitchBound: 30,
+    varioBound: 1.95,
+    airspeedBoundL: 0,
+    airspeedBoundH: 160,
   };
 
   public constructor(
     private sSelector: string,
-    options: IFlightIndicator = new FlightIndicatorSettings()
+    oOptions: IFlightIndicator = new FlightIndicatorSettings()
   ) {
-    this.assing(options);
-    this.item = this.getPalceholder();
+    this.assing(oOptions);
+    this.oItem = this.getPalceholder();
 
-    if (this.item === null) {
+    if (this.oItem === null) {
       return;
     }
 
-    // case 'turn_coordinator':
-    // 	$(this).html('<div class="instrument turn_coordinator"><img src="' + settings.img_directory + 'fi_box.svg" class="background box" alt="" /><img src="' + settings.img_directory + 'turn_coordinator.svg" class="box" alt="" /><div class="turn box"><img src="' + settings.img_directory + 'fi_tc_airplane.svg" class="box" alt="" /></div><div class="mechanics box"><img src="' + settings.img_directory + 'fi_circle.svg" class="box" alt="" /></div></div>');
-    // 	_setTurn(settings.turn);
-    // break;
-
     this.init();
-    this.item.innerHTML = "";
-    this.item.append(this.draw());
+    this.oItem.innerHTML = "";
+    this.oItem.append(this.draw());
     this.setSize();
   }
 
   private setSize(): void {
-    if (this.item === null) {
+    if (this.oItem === null) {
       return;
     }
-    let instrument: HTMLElement | null = this.item.querySelector(".instrument");
+    let instrument: HTMLElement | null = this.oItem.querySelector(
+      ".instrument"
+    );
     if (instrument !== null) {
-      instrument.style.height = `${this.settings.size}px`;
-      instrument.style.width = `${this.settings.size}px`;
+      instrument.style.height = `${this.oOptopns.size}px`;
+      instrument.style.width = `${this.oOptopns.size}px`;
 
       let background: HTMLElement | null = instrument.querySelector(
         ".box.background"
       );
       if (background !== null) {
-        background.style.display = this.settings.showBox ? "block" : "none";
+        background.style.display = this.oOptopns.showBox ? "block" : "none";
       }
     }
   }
 
-  private assing(o: IFlightIndicator): void {
-    let that = <any>this.settings;
-    for (let key in o) {
-      if (o.hasOwnProperty(key)) {
-        let value = (<any>o)[key];
-        if (typeof value !== "undefined" && typeof that[key] !== "undefined")
-          that[key] = value;
+  private assing(oObj: IFlightIndicator): void {
+    let that = <any>this.oOptopns;
+    for (let sKey in oObj) {
+      if (oObj.hasOwnProperty(sKey)) {
+        let mValue = (<any>oObj)[sKey];
+        if (typeof mValue !== "undefined" && typeof that[sKey] !== "undefined")
+          that[sKey] = mValue;
       }
     }
   }
@@ -83,7 +80,7 @@ export default class FlightIndicator {
       img.classList.add(sCssClass);
     }
     img.classList.add("box");
-    img.src = `${this.settings.img_directory}${sSrcFilename}`;
+    img.src = `${this.oOptopns.imgDirectory}${sSrcFilename}`;
     return img;
   }
 }

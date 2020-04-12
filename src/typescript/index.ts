@@ -6,55 +6,53 @@ import AirSpeedIndicator from "./AirSpeedIndicator";
 import VerticalSpeedIndicator from "./VerticalSpeedIndicator";
 import TurnIndicator from "./TurnIndicator";
 
-let attitude = new AttitudeIndicator("#attitude", {
+let oAttitude = new AttitudeIndicator("#attitude", {
   size: 300,
   showBox: false,
 });
-
-let altimeter = new AltimeterIndicator("#altimeter", {
+let oAltimeter = new AltimeterIndicator("#altimeter", {
   size: 300,
   showBox: true,
 });
+let oCompass = new CompassIndicator("#compass", {
+  size: 300,
+  showBox: false,
+});
+let oAirspeed = new AirSpeedIndicator("#airspeed", {
+  size: 300,
+  showBox: false,
+});
+let oVspeed = new VerticalSpeedIndicator("#vspeed", {
+  size: 300,
+  showBox: false,
+});
+let oTurner = new TurnIndicator("#turner", {
+  size: 300,
+  showBox: false,
+});
 
-let compass = new CompassIndicator("#compass", {
-  size: 300,
-  showBox: false,
-});
-let airspeed = new AirSpeedIndicator("#airspeed", {
-  size: 300,
-  showBox: false,
-});
-let vspeed = new VerticalSpeedIndicator("#vspeed", {
-  size: 300,
-  showBox: false,
-});
-let turner = new TurnIndicator("#turner", {
-  size: 300,
-  showBox: false,
-});
-
-// Update at 40Hz
-var increment = 0;
-setInterval(function () {
+// Update at 20Hz
+var nIncrement = 0;
+setInterval(() => {
   // Attitude update
-  attitude.setRoll(30 * Math.sin(increment / 10));
-  attitude.setPitch(50 * Math.sin(increment / 20));
+  oAttitude.setRoll(30 * Math.sin(nIncrement / 10));
+  oAttitude.setPitch(50 * Math.sin(nIncrement / 20));
 
   // Altimeter update
-  altimeter.setAltitude(10 * increment);
-  altimeter.setPressure(1000 + 3 * Math.sin(increment / 50));
+  oAltimeter.setAltitude(10 * nIncrement);
+  oAltimeter.setPressure(1000 + 3 * Math.sin(nIncrement / 50));
 
   // Compass update
-  compass.setDirection(increment);
+  oCompass.setDirection(nIncrement);
 
   // Air speed update
-  airspeed.setAirSpeed(80 + 80 * Math.sin(increment / 10));
+  oAirspeed.setAirSpeed(80 + 80 * Math.sin(nIncrement / 10));
 
   // Vertical speed update
-  vspeed.setSpeed(2 * Math.sin(increment / 10));
+  oVspeed.setSpeed(2 * Math.sin(nIncrement / 10));
 
   // Turner update
-  turner.setTurn(30 * Math.sin(increment / 10));
+  oTurner.setTurn(30 * Math.sin(nIncrement / 10));
 
-  increment++;
-}, 100);
+  nIncrement++;
+}, 50);

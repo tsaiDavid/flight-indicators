@@ -2,38 +2,38 @@ import FlightIndicator from "./FlightIndicator";
 
 export default class VerticalSpeedIndicator extends FlightIndicator {
   protected init(): void {
-    this.setSpeed(this.settings.vario as number);
+    this.setSpeed(this.oOptopns.vspeed as number);
   }
   protected draw(): HTMLElement {
-    let wrapper: HTMLDivElement = document.createElement("div");
-    wrapper.classList.add(...["instrument", "vspeed"]);
-    wrapper.append(this.createImageBox("fi_box.svg", "background"));
-    wrapper.append(this.createImageBox("vertical_mechanics.svg"));
+    let divWrapper: HTMLDivElement = document.createElement("div");
+    divWrapper.classList.add(...["instrument", "vspeed"]);
+    divWrapper.append(this.createImageBox("fi_box.svg", "background"));
+    divWrapper.append(this.createImageBox("vertical_mechanics.svg"));
 
     let divVspeed: HTMLDivElement = document.createElement("div");
     divVspeed.classList.add(...["vspeed", "box"]);
     divVspeed.append(this.createImageBox("fi_needle.svg"));
-    wrapper.append(divVspeed);
+    divWrapper.append(divVspeed);
 
     let divMechanic: HTMLDivElement = document.createElement("div");
     divMechanic.classList.add(...["mechanics", "box"]);
     divMechanic.append(this.createImageBox("fi_circle.svg"));
 
-    wrapper.append(divMechanic);
+    divWrapper.append(divMechanic);
 
-    return wrapper;
+    return divWrapper;
   }
   setSpeed(nSpeed: number) {
-    if (this.item === null) {
+    if (this.oItem === null) {
       return;
     }
-    if (nSpeed > this.constants.vario_bound) {
-      nSpeed = this.constants.vario_bound;
-    } else if (nSpeed < -this.constants.vario_bound) {
-      nSpeed = -this.constants.vario_bound;
+    if (nSpeed > this.oConstants.varioBound) {
+      nSpeed = this.oConstants.varioBound;
+    } else if (nSpeed < -this.oConstants.varioBound) {
+      nSpeed = -this.oConstants.varioBound;
     }
     nSpeed = nSpeed * 90;
-    let vspeed: HTMLElement | null = this.item.querySelector(
+    let vspeed: HTMLElement | null = this.oItem.querySelector(
       ".instrument.vspeed .vspeed"
     );
     if (vspeed !== null) {
